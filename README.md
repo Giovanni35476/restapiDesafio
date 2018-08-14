@@ -33,13 +33,13 @@ Por meio do método GET, podemos consultar dados de todos os funcionários no ba
     
     C:/PATH> curl http://127.0.0.1:5003/funcionarios/
     
-    {"funcionarios": {"1": {"id": 1, "idade": 19, "nome": "Giovanni Amorim", "cargo": "Estagiario"}, "2": {"id": 2, "idade": 20, "nome": "Livinho", "cargo": "Diretor"}}}
+    {"funcionarios": {"1": {"id": 1, "idade": 20, "nome": "Giovanni Amorim", "cargo": "Estagiario"}, "2": {"id": 2, "idade": 20, "nome": "Livinho", "cargo": "Diretor"}}}
 
 ou dados de um funcionários específico, informando o seu id:
 
     C:/PATH> curl http://127.0.0.1:5003/funcionarios/1
     
-    {"funcionario": {"id": 1, "idade": 19, "nome": "Giovanni Amorim", "cargo": "Estagiario"}}
+    {"funcionario": {"id": 1, "idade": 20, "nome": "Giovanni Amorim", "cargo": "Estagiario"}}
 
 
 # Adição de novos funcionários
@@ -50,9 +50,47 @@ Por meio do método POST, adicionamos novos funcionários à base de dados, info
     
     {"id": 3, "idade": 32, "nome": "Lucas Silva", "cargo": "Analista"}
 
-Siginifica que o funcionário foi adicionado com sucesso.
+siginifica que o funcionário foi adicionado com sucesso.
     
     
+# Edição de dados de funcionários
+
+Supondo que queremos mudar o cargo de um funcionário específico, podemos editar o valor nessa coluna deste funcionário na base de dados, por meio do método PUT:
+
+    C:/PATH> curl -X PUT -d "dados"="id=3" -d "mudanca"="cargo='Diretor'" http://127.0.0.1:5003/funcionarios/
     
+    "Dados de 1 funcionario(s) atualizados com sucesso."
     
+significa que os antigos dados foram atualizados com sucesso.
+
+Podemos também editar dados de funcionários baseando o request em mais de um dado, porém sempre editando apenas uma coluna por vez de cada funcionário ("mudanca"="idade=20 and cargo='Estagiario'" resultaria em uma confusão nos dados da tabela):
+
+    C:/PATH> curl -X PUT -d "dados"="nome='Giovanni' and cargo='Estagiario'" -d "mudanca"="cargo='Analista'" http://127.0.0.1:5003/funcionarios/
     
+    "Dados de 1 funcionario(s) atualizados com sucesso."
+   
+Claro que, não havendo compatibilidade entre os dados informados e algum funcionário existente, o retorno será:
+
+    "Dados de 0 funcionario(s) atualizados com sucesso."
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
