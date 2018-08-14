@@ -29,14 +29,30 @@ As colunas são:
 
 # Consulta aos dados de funcionários
 
-Por meio do método GET podemos consultar dados de todos os funcionários no banco de dados:
+Por meio do método GET, podemos consultar dados de todos os funcionários no banco de dados:
     
     C:/PATH> curl http://127.0.0.1:5003/funcionarios/
     
-    {"funcionarios": {"1": {"id": 1, "idade": 19, "nome": "Giovanni", "cargo": "Estagiario"}, "2": {"id": 2, "idade": 20, "nome": "Livinho", "cargo": "Diretor"}}}
+    {"funcionarios": {"1": {"id": 1, "idade": 19, "nome": "Giovanni Amorim", "cargo": "Estagiario"}, "2": {"id": 2, "idade": 20, "nome": "Livinho", "cargo": "Diretor"}}}
 
 ou dados de um funcionários específico, informando o seu id:
 
     C:/PATH> curl http://127.0.0.1:5003/funcionarios/1
     
-    {"funcionario": {"id": 1, "idade": 19, "nome": "Giovanni", "cargo": "Estagiario"}}
+    {"funcionario": {"id": 1, "idade": 19, "nome": "Giovanni Amorim", "cargo": "Estagiario"}}
+
+
+# Adição de novos funcionários
+
+Por meio do método POST, adicionamos novos funcionários à base de dados, informando sua idade, nome e cargo (o id é auto implementado):
+
+    C:/PATH> curl -X POST -d "idade"="32" -d "nome"="'Lucas Silva'" -d "cargo"="'Analista'" http://127.0.0.1:5003/funcionarios/
+    
+    {"id": 3, "idade": 32, "nome": "Lucas Silva", "cargo": "Analista"}
+
+Siginifica que o funcionário foi adicionado com sucesso.
+    
+    
+    
+    
+    
