@@ -1,7 +1,12 @@
 # restapiDesafio
 
-Será necessário instalar as seguintes bibliotecas, por meio das seguintes entradas no terminal:
+Usaremos as seguintes bibliotecas:
 
-flask : pip install flask
-flask_restful : pip install flask_restful
-sqlalchemy : pip install sqlalchemy
+flask: https://github.com/pallets/flask
+
+flask_restful : https://github.com/flask-restful/flask-restful
+
+sqlalchemy : https://github.com/zzzeek/sqlalchemy/
+
+
+
