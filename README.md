@@ -101,7 +101,8 @@ E retorna o seguinte resutado (por exemplo):
       "2":
         {"id": 2, "metodo": "POST", "retorno": "{'id': 2, 'idade': 20, 'nome': 'Livinho', 'cargo': 'Diretor'}", "data_hora": "Tue, 14 Aug 2018 17:26:40 +0000"}, 
       "3": 
-        {"id": 3, "metodo": "GET", "retorno": "{'funcionarios': {1: {'id': 1, 'idade': 20, 'nome': 'Giovanni Amorim', 'cargo': 'Estagiario'}, 2: {'id': 2, 'idade': 20, 'nome': 'Livinho', 'cargo': 'Diretor'}}}", "data_hora": "Tue, 14 Aug 2018 17:26:44 +0000"},           "4":
+        {"id": 3, "metodo": "GET", "retorno": "{'funcionarios': {1: {'id': 1, 'idade': 20, 'nome': 'Giovanni Amorim', 'cargo': 'Estagiario'}, 2: {'id': 2, 'idade': 20, 'nome': 'Livinho', 'cargo': 'Diretor'}}}", "data_hora": "Tue, 14 Aug 2018 17:26:44 +0000"},
+      "4":
         {"id": 4, "metodo": "GET", "retorno": "{'funcionario': {'id': 1, 'idade': 20, 'nome': 'Giovanni Amorim', 'cargo': 'Estagiario'}}", "data_hora": "Tue, 14 Aug 2018 17:26:45 +0000"}, 
       "5":
         {"id": 5, "metodo": "POST", "retorno": "{'id': 3, 'idade': 32, 'nome': 'Lucas Silva', 'cargo': 'Analista'}", "data_hora": "Tue, 14 Aug 2018 17:26:57 +0000"},
