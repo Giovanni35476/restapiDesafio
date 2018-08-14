@@ -116,11 +116,18 @@ E retorna o seguinte resutado (por exemplo):
         {"id": 9, "metodo": "DELETE", "retorno": "{'funcionarios removidos': {3: {'id': 3, 'idade': 32, 'nome': 'Lucas Silva', 'cargo': 'Diretor'}}}", "data_hora": "Tue, 14 Aug 2018 17:27:42 +0000"}}}
 
 
+# Tratamento de erros
 
+As requisições ao API devem ser feitas de uma maneira específica com certas regras, caso contrário, retornarão erros. Alguns desses erros foram tratados para serem retornados de maneira informativa ao usuário e a serem salvos também no banco de dados de logs de ações.
 
+Por exemplo, em requisições de métodos POST, PUT ou DELETE são associados a certas chaves "KEYS" valores que podem ser números inteiros ou texto. Caso os valores estarem em um tipo de dado diferente do correto, o sistema retornará mensagens de erro.
 
+Exemplos:
 
+    C:/PATH> curl -X POST -d "idade"="19" -d "nome"="Giovanni" -d "cargo"="'Estagiario'" http://127.0.0.1:5003/funcionarios/
+    
+    {"mensagem": "Ocorreu um erro", "erro": "no such column: Giovanni"}
 
+E essa ação será adicionada da maneira devida na tabela de logs de ações:
 
-
-
+    "10": {"id": 10, "metodo": "POST", "retorno": "{'mensagem': 'Ocorreu um erro', 'erro': 'no such column: Giovanni'}", "data_hora": "Tue, 14 Aug 2018 17:44:55 +0000"}
