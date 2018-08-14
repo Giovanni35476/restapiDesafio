@@ -25,3 +25,18 @@ As colunas são:
   "metodo", que pode ser "GET", "POST", "PUT" ou "DELETE";
   "retorno", que salva o que a requisição recebeu como retorno, sendo em forma de dados da tabela, mensagens de texto ou até mensagens de erro;
   "data_hora", sendo o horário regional da requisição.
+
+
+# Consulta aos dados de funcionários
+
+Por meio do método GET podemos consultar dados de todos os funcionários no banco de dados:
+    
+    C:/PATH> curl http://127.0.0.1:5003/funcionarios/
+    
+    {"funcionarios": {"1": {"id": 1, "idade": 19, "nome": "Giovanni", "cargo": "Estagiario"}, "2": {"id": 2, "idade": 20, "nome": "Livinho", "cargo": "Diretor"}}}
+
+ou dados de um funcionários específico, informando o seu id:
+
+    C:/PATH> curl http://127.0.0.1:5003/funcionarios/1
+    
+    {"funcionario": {"id": 1, "idade": 19, "nome": "Giovanni", "cargo": "Estagiario"}}
