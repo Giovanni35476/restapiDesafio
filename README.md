@@ -9,7 +9,7 @@ flask_restful : https://github.com/flask-restful/flask-restful
 sqlalchemy : https://github.com/zzzeek/sqlalchemy/
 
 
-# Base de dados
+## Base de dados
 
 O arquivo "db_config.py" gera a base de dados chamada "desafio.db" e, em seguida, cria as tabelas "funcionarios" e "acoes".
 
@@ -27,7 +27,7 @@ As colunas são:
   "data_hora", sendo o horário regional da requisição.
 
 
-# Consulta aos dados de funcionários
+## Consulta aos dados de funcionários
 
 Por meio do método GET, podemos consultar dados de todos os funcionários no banco de dados:
     
@@ -42,7 +42,7 @@ ou dados de um funcionários específico, informando o seu id:
     {"funcionario": {"id": 1, "idade": 20, "nome": "Giovanni Amorim", "cargo": "Estagiario"}}
 
 
-# Adição de novos funcionários
+## Adição de novos funcionários
 
 Por meio do método POST, adicionamos novos funcionários à base de dados, informando sua idade, nome e cargo (o id é auto implementado):
 
@@ -53,7 +53,7 @@ Por meio do método POST, adicionamos novos funcionários à base de dados, info
 siginifica que o funcionário foi adicionado com sucesso.
     
     
-# Edição de dados de funcionários
+## Edição de dados de funcionários
 
 Supondo que queremos mudar o cargo de um funcionário específico, podemos editar o valor nessa coluna deste funcionário na base de dados, por meio do método PUT:
 
@@ -76,7 +76,7 @@ Claro que, não havendo compatibilidade entre os dados informados e algum funcio
     "Dados de 0 funcionario(s) atualizados com sucesso."
 
 
-# Remoção de dados de funcionários
+## Remoção de dados de funcionários
 
 Podemos remover os dados de um ou mais funcionários do banco de dados pelo método DELETE, onde informamos o 'filtro' da remoção como "dados":
 
@@ -85,7 +85,7 @@ Podemos remover os dados de um ou mais funcionários do banco de dados pelo mét
     "{'funcionarios removidos': {1: {'id': 3, 'idade': 32, 'nome': 'Lucas Silva', 'cargo': 'Diretor'}}}"
 
 
-# Logs das ações
+## Logs das ações
 
 Na tabela "acoes" do banco de dados 'desafio.db', temos armazenadas todas as requisições que fizemos de maneira correta (e algumas mesmo de maneira incorreta).
 
@@ -116,7 +116,7 @@ E retorna o seguinte resutado (por exemplo):
         {"id": 9, "metodo": "DELETE", "retorno": "{'funcionarios removidos': {3: {'id': 3, 'idade': 32, 'nome': 'Lucas Silva', 'cargo': 'Diretor'}}}", "data_hora": "Tue, 14 Aug 2018 17:27:42 +0000"}}}
 
 
-# Tratamento de erros
+## Tratamento de erros
 
 As requisições ao API devem ser feitas de uma maneira específica com certas regras, caso contrário, retornarão erros. Alguns desses erros foram tratados para serem retornados de maneira informativa ao usuário e a serem salvos também no banco de dados de logs de ações.
 
