@@ -33,9 +33,6 @@ class Funcionarios(Resource):
             c.execute("insert into funcionarios (idade,nome,cargo) values ({})".format(idade+", "+nome+", "+cargo))
             for row in c.execute("select * from funcionarios where idade={} and nome={} and cargo={}".format(idade,nome,cargo)):
                 retorno = dict(zip(('id','idade','nome','cargo'),row))
-            #c.execute("""insert into acoes (metodo, retorno, data_hora) values ("{}","{}","{}")""".format('POST',str(retorno),strftime("%a, %d %b %Y %H:%M:%S +0000", localtime())))
-            #conn.commit()
-            #conn.close()
         except Exception as e:
             retorno = {
                 'mensagem': 'Ocorreu um erro',
