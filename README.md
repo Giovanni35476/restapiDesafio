@@ -71,15 +71,18 @@ Podemos também editar dados de funcionários baseando o request em mais de um d
    
 Claro que, não havendo compatibilidade entre os dados informados e algum funcionário existente, o retorno será:
 
+    C:/PATH> curl -X PUT -d "dados"="id=1000" -d "mudanca"="idade=31" http://127.0.0.1:5003/funcionarios/
+    
     "Dados de 0 funcionario(s) atualizados com sucesso."
 
 
+# Remoção de dados de funcionários
 
+Podemos remover os dados de um ou mais funcionários do banco de dados pelo método DELETE, onde informamos o 'filtro' da remoção como "dados":
 
+    curl -X DELETE -d "dados"="id=3" http://127.0.0.1:5003/funcionarios/
 
-
-
-
+    "{'funcionarios removidos': {1: {'id': 3, 'idade': 32, 'nome': 'Lucas Silva', 'cargo': 'Diretor'}}}"
 
 
 
