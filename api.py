@@ -4,11 +4,12 @@ from sqlalchemy import create_engine
 from time import localtime, strftime
 import sqlite3
 
-database_name="desafio.db"
+database_name = "desafio.db"
 db_connect = create_engine('sqlite:///{}'.format(database_name))
 app = Flask(__name__)
 app.config['JSON_SORT_KEYS'] = False
 api = Api(app)
+
 
 class Inicio(Resource):
     def get(self):
@@ -19,10 +20,13 @@ class Funcionarios(Resource):
     def get(self):
         conn = db_connect.connect()
         query = conn.execute("select * from funcionarios")
-        result = {'funcionarios' : {i[0]: dict(zip(tuple(query.keys()), i)) for i in query.cursor}}
-        conn.execute("""insert into acoes (metodo, retorno, data_hora) values ("{}","{}","{}")""".format('GET',str(result),strftime("%a, %d %b %Y %H:%M:%S +0000", localtime())))
+        result = {'funcionarios': {i[0]: dict(zip(tuple(query.keys()), i)) for i in query.cursor}}
+        conn.execute(
+            """insert into acoes (metodo, retorno, data_hora) values ("{}","{}","{}")""".format('GET', str(result),
+                                                                                                strftime(
+                                                                                                    "%a, %d %b %Y %H:%M:%S +0000",
+                                                                                                    localtime())))
         return jsonify(result)
-
 
     def post(self):
         try:
@@ -31,21 +35,25 @@ class Funcionarios(Resource):
             cargo = request.form.get('cargo')
             conn = sqlite3.connect(database_name)
             c = conn.cursor()
-            c.execute("insert into funcionarios (idade,nome,cargo) values ({})".format(idade+", "+nome+", "+cargo))
-            for row in c.execute("select * from funcionarios where idade={} and nome={} and cargo={}".format(idade,nome,cargo)):
-                retorno = jsonify(dict(zip(('id','idade','nome','cargo'),row)))
+            c.execute(
+                "insert into funcionarios (idade,nome,cargo) values ({})".format(idade + ", " + nome + ", " + cargo))
+            for row in c.execute(
+                    "select * from funcionarios where idade={} and nome={} and cargo={}".format(idade, nome, cargo)):
+                retorno = jsonify(dict(zip(('id', 'idade', 'nome', 'cargo'), row)))
         except Exception as e:
             retorno = jsonify({
                 'mensagem': 'Ocorreu um erro',
                 'erro': str(e)
             })
             retorno.status_code = 400
-        c.execute("""insert into acoes (metodo, retorno, data_hora) values ("{}","{}","{}")""".format('POST',str(retorno),strftime("%a, %d %b %Y %H:%M:%S +0000", localtime())))
+        c.execute(
+            """insert into acoes (metodo, retorno, data_hora) values ("{}","{}","{}")""".format('POST', str(retorno),
+                                                                                                strftime(
+                                                                                                    "%a, %d %b %Y %H:%M:%S +0000",
+                                                                                                    localtime())))
         conn.commit()
         conn.close()
         return retorno
-
-
 
     def put(self):
         try:
@@ -53,10 +61,10 @@ class Funcionarios(Resource):
             mudanca = request.form.get('mudanca')
             conn = sqlite3.connect(database_name)
             c = conn.cursor()
-            contador=0
+            contador = 0
             for row in c.execute("select * from funcionarios where {}".format(dados)):
                 contador += 1
-            c.execute("update funcionarios set {} where {}".format(mudanca,dados))
+            c.execute("update funcionarios set {} where {}".format(mudanca, dados))
             retorno = "Dados de {} funcionario(s) atualizados com sucesso.".format(contador)
         except Exception as e:
             retorno = jsonify({
@@ -64,11 +72,15 @@ class Funcionarios(Resource):
                 'erro': str(e)
             })
             retorno.status_code = 400
-        c.execute("""insert into acoes (metodo, retorno, data_hora) values ("{}","{}","{}")""".format('PUT', str(retorno), strftime("%a, %d %b %Y %H:%M:%S +0000", localtime())))
+        c.execute(
+            """insert into acoes (metodo, retorno, data_hora) values ("{}","{}","{}")""".format('PUT', str(retorno),
+                                                                                                strftime(
+                                                                                                    "%a, %d %b %Y %H:%M:%S +0000",
+                                                                                                    localtime())))
         conn.commit()
         conn.close()
         return retorno
-    
+
     def delete(self):
         try:
             dados = request.form.get('dados')
@@ -78,6 +90,8 @@ class Funcionarios(Resource):
             conn = sqlite3.connect(database_name)
             c = conn.cursor()
             c.execute("delete from funcionarios where {}".format(dados))
+            conn.commit()
+            conn.close()
             retorno = result
         except Exception as e:
             retorno = jsonify({
@@ -87,31 +101,41 @@ class Funcionarios(Resource):
             retorno.status_code = 400
         conn = sqlite3.connect(database_name)
         c = conn.cursor()
-        c.execute("""insert into acoes (metodo,retorno,data_hora) values ("{}","{}","{}")""".format('DELETE',str(retorno),strftime("%a, %d %b %Y %H:%M:%S +0000",localtime())))
+        c.execute(
+            """insert into acoes (metodo,retorno,data_hora) values ("{}","{}","{}")""".format('DELETE', str(retorno),
+                                                                                              strftime(
+                                                                                                  "%a, %d %b %Y %H:%M:%S +0000",
+                                                                                                  localtime())))
         conn.commit()
         conn.close()
         return retorno
+
 
 class Funcionario_ID(Resource):
     def get(self, id_funcionario):
         conn = db_connect.connect()
         query = conn.execute("select * from funcionarios where id =%d " % int(id_funcionario))
-        result = {'funcionario' : dict(zip(tuple(query.keys()), i)) for i in query.cursor}
-        conn.execute("""insert into acoes (metodo,retorno,data_hora) values ("{}","{}","{}")""".format('GET',str(result),strftime("%a, %d %b %Y %H:%M:%S +0000", localtime())))
+        result = {'funcionario': dict(zip(tuple(query.keys()), i)) for i in query.cursor}
+        conn.execute(
+            """insert into acoes (metodo,retorno,data_hora) values ("{}","{}","{}")""".format('GET', str(result),
+                                                                                              strftime(
+                                                                                                  "%a, %d %b %Y %H:%M:%S +0000",
+                                                                                                  localtime())))
         return jsonify(result)
+
 
 class Logs(Resource):
     def get(self):
         conn = db_connect.connect()
         query = conn.execute("select * from acoes")
-        result = {'acoes' : {i[0]: dict(zip(tuple(query.keys()), i)) for i in query.cursor}}
+        result = {'acoes': {i[0]: dict(zip(tuple(query.keys()), i)) for i in query.cursor}}
         return jsonify(result)
 
-api.add_resource(Inicio,'/')
-api.add_resource(Funcionarios, '/funcionarios/',methods=['GET','POST','PUT','DELETE'])
-api.add_resource(Funcionario_ID, '/funcionarios/<id_funcionario>')
-api.add_resource(Logs,'/logs/')
 
+api.add_resource(Inicio, '/')
+api.add_resource(Funcionarios, '/funcionarios/', methods=['GET', 'POST', 'PUT', 'DELETE'])
+api.add_resource(Funcionario_ID, '/funcionarios/<id_funcionario>')
+api.add_resource(Logs, '/logs/')
 
 if __name__ == '__main__':
-    app.run(port='5003')
+    app.run(port=5003)
