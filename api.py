@@ -68,7 +68,7 @@ class Funcionarios(Resource):
         conn.commit()
         conn.close()
         return retorno
-
+    
     def delete(self):
         try:
             dados = request.form.get('dados')
@@ -85,11 +85,12 @@ class Funcionarios(Resource):
                 'erro': str(e)
             })
             retorno.status_code = 400
+        conn = sqlite3.connect(database_name)
+        c = conn.cursor()
         c.execute("""insert into acoes (metodo,retorno,data_hora) values ("{}","{}","{}")""".format('DELETE',str(retorno),strftime("%a, %d %b %Y %H:%M:%S +0000",localtime())))
         conn.commit()
         conn.close()
         return retorno
-
 
 class Funcionario_ID(Resource):
     def get(self, id_funcionario):
